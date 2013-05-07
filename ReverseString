@@ -1,6 +1,6 @@
 /* Problem: Reverse a string without using any String API methods.
  * 
- * Difficulty: VERY EASY
+ * Difficulty: EASY
  * 
  * Solution: Start at the end of the given string and iterate backwards, appending each character to the return string.
  */
