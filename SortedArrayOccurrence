@@ -1,0 +1,42 @@
+/* Problem: Find amount of occurrences of an integer in a sorted array of integers.
+ * 
+ * Idea: A solution similar to binary search will be fastest since the array is already sorted.
+ */
+
+public class SortedArrayOccurrence {
+  public static void main( String [] args ) {
+		int[] numbers = {1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,3,4,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,7,8,9};
+		System.out.println(countOccurrence(6, 0, numbers.length - 1, numbers));
+	}
+	
+	public static int countOccurrence( int k, int left, int right, int[] arr ) {
+		
+		// k is out of range or the range is invalid
+		if (arr[left] > k || arr[right] < k || right < left) {
+			return 0;
+		}
+		
+		// the entire range consists of a single number
+		else if (arr[left] == k && arr[right] == k) {
+			return right - left + 1;
+		}
+		
+		// compute middle index to split array into 2 sides
+		int mid = (right+left)/2;
+		
+		// k is not on the left side, check the right side
+		if (arr[mid] < k) {
+			return countOccurrence(k, mid + 1, right, arr);
+		}
+		
+		// k is not on the right side, check the left side
+		else if (arr[mid] > k) {
+			return countOccurrence(k, left, mid - 1, arr);
+		}
+		
+		// found one occurrence, check if there are more on left and right side
+		else {
+			return 1 + countOccurrence(k, left, mid - 1, arr) + countOccurrence(k, mid + 1, right, arr);
+		}
+	}
+}
