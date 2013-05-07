@@ -1,6 +1,8 @@
 /* Problem: Find amount of occurrences of an integer in a sorted array of integers.
  * 
- * Idea: A solution similar to binary search will be fastest since the array is already sorted.
+ * Difficulty: EASY
+ * 
+ * Solution: A solution similar to binary search will be fastest since the array is already sorted.
  */
 
 public class SortedArrayOccurrence {
