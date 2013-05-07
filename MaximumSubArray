@@ -1,7 +1,9 @@
 /* Problem: Given an array of positive and negative integers, write an algorithm that returns the contiguous
  *          sub-array with the largest sum.
  * 
- * Idea: We can use dynamic programming which solves sub-problems. For best possible time,
+ * Difficulty: MEDIUM
+ *
+ * Solution: We can use dynamic programming which solves sub-problems. For best possible time,
  *       we should only iterate through the array once. Realize that if an contiguous sub-array
  *       has a sum less than 0, adding the next integer in the array to the sum will result in
  *       a sum that is less than the next integer itself. So in this case, we start a new sum.
