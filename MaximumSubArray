@@ -1,0 +1,61 @@
+/* Problem: Given an array of positive and negative integers, write an algorithm that returns the contiguous
+ *          sub-array with the largest sum.
+ * 
+ * Idea: We can use dynamic programming which solves sub-problems. For best possible time,
+ *       we should only iterate through the array once. Realize that if an contiguous sub-array
+ *       has a sum less than 0, adding the next integer in the array to the sum will result in
+ *       a sum that is less than the next integer itself. So in this case, we start a new sum.
+ *       Keep track of all the sums we encounter, then return the largest one.
+ */
+
+import java.util.Arrays;
+
+public class MaximumSubArray {
+  
+	public static void main( String []args ) {
+	 	int[] intArr1 = {3, -1, -1, -1, -1, -1, 2, 0, 0, 0 };
+	 	
+    	int[] intArr2 = {-1, 3, -5, 4, 6, -1, 2, -7, 13, -3};
+	 	
+    	int[] intArr3 = {-6,-2,-3,-4,-1,-5,-5};
+	 	
+        int maximum = maximumSubArray( intArr2 );
+        
+        System.out.println(maximum);
+	}
+	
+	public static int maximumSubArray( int[] arr ) {
+		
+		int maxStartIndex = 0; //start index of maximum sub-array
+		int maxEndIndex = 0; //end index of maximum sub-array
+		int maxSum = Integer.MIN_VALUE; //the maximum sum of all sub-problems
+		
+		int currentSum = 0; //sum of the current sub-problem
+		int currentStartIndex = 0; //start index of the current sub-problem
+		
+		// iterate through the given array
+		for ( int i = 0; i < arr.length; i++ ) {
+			
+			currentSum += arr[i]; //add to our current sum
+			
+			// the current sub-problem does not contribute positively, so start a new sub-problem
+			if ( currentSum < 0 ) {
+				currentSum = 0;
+				currentStartIndex = i + 1;
+			}
+			
+			// the current sub-problem contains a greater sum than a previous sub-problem, so reset the maximum
+			else if ( currentSum > maxSum ) {
+				maxSum = currentSum;
+				maxStartIndex = currentStartIndex;
+				maxEndIndex = i;
+			}
+		}
+		
+		System.out.println("MaxSum: " + maxSum);
+		System.out.println("MaxStartIndex: " + maxStartIndex);
+		System.out.println("MaxEndIndex: " + maxEndIndex);
+		
+		return maxSum;
+	}
+}
