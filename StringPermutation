@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+
+/* Problem: Write an algorithm to print out all permutations of a given string (no duplicate letters).
+ * 
+ * Idea: We know that there are n! permutations of a string with no duplicate letters. The n! formula comes 
+ *       from the idea that if we select a single letter to form our permutation each time,
+ *       there are n choices at the start, then n-1 choices, then n-2 choices, and so on. 
+ *       Use this idea to recursively create permutations.
+ */
+public class StringPermutation {
+
+  public static void main( String []args ) { 
+		ArrayList<String> permutations = permuteString("abcd");
+		for ( String str : permutations ) {
+			System.out.println(str);
+		}
+		
+		System.out.println("There are " + permutations.size() + " permutations.");
+	}
+	
+	public static ArrayList<String> permuteString( String str ) {
+		
+		ArrayList<String> permutations = new ArrayList();
+		
+		// check if input is invalid
+		if (str == null || str.equals("")) {
+			return permutations;
+		}
+		
+		// if there is only one letter, the letter is the only permutation
+		else if (str.length() == 1) {
+			permutations.add(str);
+			return permutations;
+		}
+		
+		// pick the first letter
+		String letter = str.substring(0,1);
+		
+		// permute the rest of the letters
+		ArrayList<String> rest = permuteString(str.substring(1, str.length()));
+		
+		// iterate through all permutations
+		for ( String s: rest ) {
+			
+			// for each permutation, insert the first letter into every possible position
+			for ( int i = 0; i < s.length(); i++ ) {
+				String singlePermutation = s.substring(0, i) + letter + s.substring(i, s.length());
+				permutations.add( singlePermutation );
+			}
+			permutations.add(s + letter); //for last position
+		}
+		
+		return permutations;
+	}
+}
