@@ -3,7 +3,9 @@ import java.util.Iterator;
 
 /* Problem: Write an algorithm to print out all permutations of a given string (no duplicate letters).
  * 
- * Idea: We know that there are n! permutations of a string with no duplicate letters. The n! formula comes 
+ * Difficulty: MEDIUM
+ *
+ * Solution: We know that there are n! permutations of a string with no duplicate letters. The n! formula comes 
  *       from the idea that if we select a single letter to form our permutation each time,
  *       there are n choices at the start, then n-1 choices, then n-2 choices, and so on. 
  *       Use this idea to recursively create permutations.
