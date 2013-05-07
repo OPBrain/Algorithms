@@ -1,0 +1,118 @@
+// Contains all Linked List problems
+
+public class List {
+  int value;
+	List next;
+	
+	public List( int inValue ) {
+		value = inValue;
+	}
+	
+	// print the linked list (for testing and debugging purposes)
+	public void print() {
+		if (this == null) 
+			return;
+				
+		System.out.print(this.value + " -> ");
+		if (next != null) {
+			next.print();
+		}
+		else {
+			System.out.println( "null ");
+		}
+	}
+	
+	/* Problem: Write an algorithm to determine if a singly linked list contains a loop.
+	 * 
+	 * Idea: Use 2 pointers; former starting at the first node, latter starting at the second node. 
+	 *       Iterate the first pointer by 1 node each time, while the second pointer iterates through 2 nodes.
+	 *       If the two pointers eventually meet at the same node, we have a loop.
+	 */
+	public static boolean hasLoop( List list ) {
+		List pointer1 = list;
+		List pointer2 = list.next;
+		
+		// iterate until pointer2 is null
+		while ( pointer2 != null ) {
+			pointer1 = pointer1.next;
+			pointer2 = pointer2.next;
+			
+			// second iteration of pointer2
+			if (pointer2 != null) {
+				pointer2 = pointer2.next;
+			}
+			
+			if (pointer2 == pointer1) {
+				return true;
+			}
+		}
+		
+		// pointer2 has reached the end of the linked list => there is no loop
+		return false;
+	}
+	
+	/* Problem: Write an algorithm that returns the middle element of a linked list. If the number of elements is even,
+	 *          return the middle element on the left.
+	 * 
+	 * Idea: Use 2 pointers; former starting at the first node, latter starting at the second node.
+	 *       Iterate the first pointer by 1 node each time, while the second pointer iterates through 2 nodes.
+	 *       When the second pointer reaches the end, the first pointer will be at the middle of the list.
+	 */
+	public static int getMiddle( List list ) {
+		List pointer1 = list;
+		List pointer2 = list.next;
+		
+		// iterate until pointer2 reaches the end
+		while ( pointer2 != null ) {
+			pointer1 = pointer1.next;
+			pointer2 = pointer2.next;
+			if (pointer2 != null) {
+				pointer2 = pointer2.next;
+			}
+		}
+		
+		return pointer1.value;
+	}
+	
+	/* Problem: Write a recursive algorithm that returns the reverse of a singly linked list.
+	 * 
+	 * Idea: Base Case - Realize a list containing a single element is already reversed; simply return the list.
+	 *       Recursive Step - Call reverse on the entire list excluding the first element. Now the head is pointing to the last 
+	 *       element in the reversed list. We have a pointer to tail of our reversed list, so simply add the head 
+	 *       to the tail and we are done.
+	 */
+	public static List recursiveReverse( List list ) {
+		if (list == null || list.next == null) {			
+			return list;
+		}
+		List reverseRemaining = recursiveReverse( list.next );
+		list.next.next = list;
+		list.next = null;
+		
+		return reverseRemaining;
+	}
+	
+	/* Problem: Write a iterative algorithm that returns the reverse of a singly linked list.
+	 * 
+	 * Idea: The algorithm is iterative, so create a pointer to keep track of the current element.
+	 *       Create another pointer that accumulates our reverse progress and set it to null.
+	 *       Accumulate the reversed list by configuring current to be the head of reverse progress.
+	 */
+	public static List iterativeReverse( List list ) {
+		List curr = list;
+		List reversed = null;
+		
+		while( curr != null ) {
+			List next = curr.next;
+			curr.next = reversed;
+			reversed = curr;
+			curr = next;
+		}
+		
+		return reversed;
+	}
+	
+	
+}
+
+
