@@ -1,0 +1,73 @@
+/* Problem: There are n petroleum bunks located in a circle. A truck can only travel circularly in one direction.
+ *   		We have a truck which runs 1KM per 1L of fuel. Initially truck has no fuel. Two arrays are given. 
+ * 			The distances to the next petroleum bunk are given in one array. 
+ *  		The other contains the # of Liters of fuel available at each petroleum bunk.
+ *  		Find the starting point where the truck is able to visit entire circle without running out of fuel. 
+ *  
+ * Idea: Calculate the net fuel at each bunker; the fuel available - the distance between the current and next bunker.
+ *       If the sum of each bunker's net fuel is > 0, then we have a solution. 
+ *       Create an array for the net fuel and run the maximum sub-array algorithm. The starting index for the sub-array
+ *       is a solution to this problem.
+ */
+
+public class PetrolBunk {
+	public static void main( String []args ) {
+		int[] distance = {5, 10, 20, 15, 1};
+		int[] fuel = {1, 9, 15, 7, 20};
+		
+		System.out.println("The truck should start at the bunker at index " + findStart(distance, fuel));
+	}
+	
+	public static int findStart( int[] distance, int[] fuel ) {
+		
+		int[] netFuel = new int[distance.length];
+		int netTotal = 0;
+		
+		// iterate through distance and fuel, determine the net fuel
+		for ( int i = 0; i < distance.length; i++ ) {
+			netFuel[i] = fuel[i] - distance[i];
+			netTotal += netFuel[i];
+		}
+		
+		// if the net total fuel is greater than 0, there is a solution. Run the maximum sub-array algorithm.
+		if (netTotal > 0) {
+			return maximumSubArray(netFuel);
+		} 
+		
+		// there is no solution
+		else {
+			return -1;
+		}
+	}
+	
+	public static int maximumSubArray( int[] arr ) {
+		
+		int maxStartIndex = 0; //start index of maximum sub-array
+		int maxEndIndex = 0; //end index of maximum sub-array
+		int maxSum = Integer.MIN_VALUE; //the maximum sum of all sub-problems
+		
+		int currentSum = 0; //sum of the current sub-problem
+		int currentStartIndex = 0; //start index of the current sub-problem
+		
+		// iterate through the given array
+		for ( int i = 0; i < arr.length; i++ ) {
+			
+			currentSum += arr[i]; //add to our current sum
+			
+			// the current sub-problem does not contribute positively, so start a new sub-problem
+			if ( currentSum < 0 ) {
+				currentSum = 0;
+				currentStartIndex = i + 1;
+			}
+			
+			// the current sub-problem contains a greater sum than a previous sub-problem, so reset the maximum
+			else if ( currentSum > maxSum ) {
+				maxSum = currentSum;
+				maxStartIndex = currentStartIndex;
+				maxEndIndex = i;
+			}
+		}
+
+		return maxStartIndex;
+	}
+}
