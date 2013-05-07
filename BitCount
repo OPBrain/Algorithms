@@ -1,0 +1,25 @@
+/* Problem: Given an integer, count the number of 1 bits in the binary representation of the integer. 
+ *          Give the fastest solution possible.
+ * 
+ * Idea: As an example, let the given integer be 66. 1000010 - 1 = 1000001. Then, 1000010 & 1000001 = 1000000.
+ *       By subtracting 1 and &-ing with the result, we remove a 1 from the binary representation. Repeat this
+ *       algorithm until the number is 0000000.
+ */
+
+public class BitCount {
+  public static void main( String []args ) {
+		System.out.println("The number of 1 bits in 66 is " + bitCount(66));
+	}
+	
+	public static int bitCount( int num ) {
+		
+		int bitTotal = 0;
+		
+		while (num != 0) {
+			num = num & (num - 1);
+			bitTotal += 1;
+		}
+		
+		return bitTotal;
+	}
+}
