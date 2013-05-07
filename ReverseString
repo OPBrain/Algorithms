@@ -1,4 +1,4 @@
-/* Problem: Reverse a string.
+/* Problem: Reverse a string without any String API methods.
 * 
 * Idea: Start at the end of the given string and iterate backwards, appending each character to the return string.
 */
