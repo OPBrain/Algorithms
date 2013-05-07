@@ -1,10 +1,10 @@
 /* Problem: There are n petroleum bunks located in a circle. A truck can only travel circularly in one direction.
  *   		We have a truck which runs 1KM per 1L of fuel. Initially truck has no fuel. Two arrays are given. 
- * 			The distances to the next petroleum bunk are given in one array. 
+ * 		The distances to the next petroleum bunk are given in one array. 
  *  		The other contains the # of Liters of fuel available at each petroleum bunk.
  *  		Find the starting point where the truck is able to visit entire circle without running out of fuel. 
  *  
- * Idea: Calculate the net fuel at each bunker; the fuel available - the distance between the current and next bunker.
+ * Idea: Calculate the net fuel at each bunker; net fuel = the fuel available - the distance between the current and next bunker.
  *       If the sum of each bunker's net fuel is > 0, then we have a solution. 
  *       Create an array for the net fuel and run the maximum sub-array algorithm. The starting index for the sub-array
  *       is a solution to this problem.
