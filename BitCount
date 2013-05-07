@@ -1,7 +1,9 @@
 /* Problem: Given an integer, count the number of 1 bits in the binary representation of the integer. 
  *          Give the fastest solution possible.
+ *
+ * Difficulty: EASY
  * 
- * Idea: As an example, let the given integer be 66. 1000010 - 1 = 1000001. Then, 1000010 & 1000001 = 1000000.
+ * Solution: As an example, let the given integer be 66. 1000010 - 1 = 1000001. Then, 1000010 & 1000001 = 1000000.
  *       By subtracting 1 and &-ing with the result, we remove a 1 from the binary representation. Repeat this
  *       algorithm until the number is 0000000.
  */
